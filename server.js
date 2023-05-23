@@ -21,7 +21,7 @@ app.get('/api/notes', (req,res) => {
     res.sendFile(__dirname + './db/db.json');
 });
 
-app.post ('/api/notes', (req,req) => {
+app.post ('/api/notes', (req,res) => {
     let {title, text} = req.body;
     if (title && text) {
         let newNote = {title, text};
@@ -35,7 +35,7 @@ app.post ('/api/notes', (req,req) => {
                 console.log("this works")
             });
         })
-        //res.send(newNote);
+        res.send(newNote);
     }
     else {
         throw new Error ('it does not work')
