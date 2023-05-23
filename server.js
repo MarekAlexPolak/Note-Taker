@@ -29,15 +29,14 @@ app.post ('/api/notes', (req,res) => {
         let newNote = {title, text};
         fs.readFile(__dirname + '/db/db.json', 'utf8', (err,data) => {
             if (err) throw err;
-            data = JSON.parse(data);
-            newNote.id = data.length;
-            data.push(newNote);
-            fs.writeFile(__dirname + '/db/db.json', JSON.stringify(data), err =>{
+            let newData = JSON.parse(data);
+            newNote.id = newData.length;
+            newData.push(newNote);
+            fs.writeFile('./db/db.json', JSON.stringify(newData), err =>{
                 if (err) throw err;
                 console.log("this works")
             });
         })
-        res.send(newNote);
     }
     else {
         throw new Error ('it does not work')
