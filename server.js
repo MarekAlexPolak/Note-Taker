@@ -20,19 +20,19 @@ app.get('/notes', (req, res) => {
 });
 
 app.get('/api/notes', (req,res) => {
-    res.sendFile(__dirname + './db/db.json');
+    res.sendFile(__dirname + '/db/db.json');
 });
 
-app.post ('/api/notes.json', (req,res) => {
+app.post ('/api/notes', (req,res) => {
     let {title, text} = req.body;
     if (title && text) {
         let newNote = {title, text};
-        fs.readFile(__dirname + './db/db.json', 'utf-8', (err,data) => {
+        fs.readFile(__dirname + '/db/db.json', 'utf-8', (err,data) => {
             if (err) throw err;
             let newData = JSON.parse(data);
             newNote.id = newData.length;
             newData.push(newNote);
-            fs.writeFile('./db/db.json', JSON.stringify(newData), err =>{
+            fs.writeFile('/db/db.json', JSON.stringify(newData), err =>{
                 if (err) throw err;
                 console.log("this works")
             });
