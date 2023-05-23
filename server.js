@@ -5,7 +5,7 @@ const fs = require('fs');
 const app = express(); 
 
 //enable server
-const PORT = process.env.PORT || 7777;
+const PORT = process.env.PORT || 5001;
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
@@ -27,19 +27,20 @@ app.post ('/api/notes', (req,res) => {
     let {title, text} = req.body;
     if (title && text) {
         let newNote = {title, text};
-        fs.readFile(__dirname + '/db/db.json', 'utf-8', (err,data) => {
+        fs.readFile('./db/db.json', 'utf-8', (err,data) => {
             if (err) throw err;
             let newData = JSON.parse(data);
             newNote.id = newData.length;
+            console.log(newNote);
             newData.push(newNote);
-            fs.writeFile('/db/db.json', JSON.stringify(newData), err =>{
+            fs.writeFile('./db/db.json', JSON.stringify(newData), err =>{
                 if (err) throw err;
                 console.log("this works")
             });
         })
     }
     else {
-        throw new Error ('it does not work')
+        res.status(500).json('it does not work');
     }
 })
 
