@@ -27,7 +27,7 @@ app.post ('/api/notes', (req,res) => {
     let {title, text} = req.body;
     if (title && text) {
         let newNote = {title, text};
-        fs.readFile(__dirname + '/db/db.json', 'utf8', (err,data) => {
+        fs.readFile(__dirname + './db/db.json', 'utf-8', (err,data) => {
             if (err) throw err;
             let newData = JSON.parse(data);
             newNote.id = newData.length;
