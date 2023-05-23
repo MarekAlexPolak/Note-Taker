@@ -23,7 +23,7 @@ app.get('/api/notes', (req,res) => {
     res.sendFile(__dirname + './db/db.json');
 });
 
-app.post ('/api/notes', (req,res) => {
+app.post ('/api/notes.json', (req,res) => {
     let {title, text} = req.body;
     if (title && text) {
         let newNote = {title, text};
