@@ -5,7 +5,7 @@ const fs = require('fs');
 const app = express(); 
 
 //enable server
-const PORT = process.env.PORT || 5001;
+const PORT = process.env.PORT || 5004;
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
@@ -37,6 +37,7 @@ app.post ('/api/notes', (req,res) => {
                 if (err) throw err;
                 console.log("this works")
             });
+            res.send(newData);
         })
     }
     else {
@@ -61,6 +62,7 @@ app.delete('/api/notes/:id', (req, res) => {
             if (err) throw err;
             console.log(id);
         });
+        res.send(delNotes);
     });
 })
 
