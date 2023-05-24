@@ -5,7 +5,7 @@ const fs = require('fs');
 const app = express(); 
 
 //enable server
-const PORT = process.env.PORT || 5004;
+const PORT = process.env.PORT || 5009;
 
 app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
@@ -52,10 +52,13 @@ app.delete('/api/notes/:id', (req, res) => {
         if (err) throw err;
     
         delNotes = JSON.parse(notes);
-
         for (let i = 0; i < delNotes.length; i++) {
             if (delNotes[i].id === parseInt(id)) {
                 delNotes.splice(i, 1);
+                for (let x = i; x < delNotes.length; x++){
+                    delNotes[x].id--;
+                }
+                break;
             }
         }
         fs.writeFile('./db/db.json', JSON.stringify(delNotes), err => {
